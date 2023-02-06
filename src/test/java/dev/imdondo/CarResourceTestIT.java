@@ -2,9 +2,9 @@ package dev.imdondo;
 
 
 import io.quarkus.test.junit.QuarkusTest;
-//import io.vertx.core.json.JsonObject;
 
-import io.vertx.core.json.JsonObject;
+//import io.vertx.core.json.JsonObject;
+import javax.json.JsonObject ;
 import javax.json.Json;
 import org.junit.jupiter.api.*;
 
@@ -108,10 +108,9 @@ public class CarResourceTestIT {
     void create() {
         JsonObject jsonObject =
                 Json.createObjectBuilder()
-                        .add("title", "ThirdMovie")
-                        .add("description", "MyThirdMovie")
-                        .add("director", "Me")
-                        .add("country", "Planet")
+                        .add("title", "ThirdCar")
+                        .add("description", "MyThirdCar")
+                        .add("model", "hatchback")
                         .build();
 
         given()
@@ -135,17 +134,16 @@ public class CarResourceTestIT {
                 .put("/movies/2")
                 .then()
                 .body("id", equalTo(2))
-                .body("title", equalTo("SecondMovieUpdate"))
-                .body("description", equalTo("MySecondMovie"))
-                .body("director", equalTo("Me"))
-                .body("country", equalTo("Planet"))
+                .body("make", equalTo("SecondCarUpdate"))
+                .body("description", equalTo("MySecondCar"))
+                .body("model", equalTo("hatchback"))
                 .statusCode(Response.Status.OK.getStatusCode());
     }
 
     @Test
     @Order(4)
     void updateByIdKO() {
-        JsonObject jsonObject = Json.createObjectBuilder().add("make", "SecondMovieUpdate").build();
+        JsonObject jsonObject = Json.createObjectBuilder().add("make", "SecondCarUpdate").build();
 
         given()
                 .contentType(MediaType.APPLICATION_JSON)
